@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Expense Tracker</title>
+    <link rel="stylesheet" href="style1.css">
+    
+</head>
+<body>
+<header class="navbar">
+    <div class="logo-area">
+        <img src="logo.png" class="logo">
+        <span class="brand-name">Money Map</span>
+    </div>
+
+    <!-- ADD THIS -->
+    <button onclick="logout()" class="logout-btn">Logout</button>
+
+</header>
+
+
+<div class="content">
+    <h1>Monthly Expense Tracker</h1>
+    <p>Select the category you belong to</p>
+
+    <div class="main-box">
+        <button onclick="openPage('student.html')">🎓 Student</button>
+        <button onclick="openPage('normal.html')">👤 Normal Person</button>
+        <button onclick="openPage('index.html')">♿ Disabled / Blind</button>
+    </div>
+</div>
+
+<script>
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
+    }
+</script>
+
+<script src="auth.js"></script>
+<script src="script1.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

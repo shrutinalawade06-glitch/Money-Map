@@ -1,0 +1,113 @@
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Money Allocation</title>
+
+<!-- SAME CSS AS EXPENSE TRACKER -->
+<link rel="stylesheet" href="normal.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Money Allocation (Working People)</h2>
+
+<!-- FORM -->
+<div class="card">
+    <div class="card">
+    <h3>Monthly Income</h3>
+    <input type="number" id="monthlyIncome" placeholder="Enter Monthly Income">
+    <!-- <button onclick="applyIncomeLevels()">Apply Income Rule</button> -->
+     <button onclick="saveMonthlyIncome()">Save Income</button>
+</div>
+<!-- ✅ ADD THIS BLOCK HERE (LEVEL BARS) -->
+<div class="card">
+    <h3>Income Distribution</h3>
+<!-- 
+    <p>Want (30%)</p>
+    <div class="progress-container">
+        <div class="progress-bar" id="wantBar"></div>
+    </div> -->
+ 
+    <div class="level-box">
+    <p>Saving (10%)</p>
+    <div class="level-track">
+        <div id="savingBar" class="level-fill"></div>
+    </div>
+</div>
+
+<div class="level-box">
+    <p>Investment (10%)</p>
+    <div class="level-track">
+        <div id="investBar" class="level-fill"></div>
+    </div>
+</div>
+ 
+    <p id="Summary Text"></p>
+</div>
+<!-- ✅ END -->
+    
+    <input type="date" id="date">
+    <input type="number" id="amount" placeholder="Enter Amount">
+
+    <select id="type">
+        <option value="">Select Type</option>
+        <option value="Saving">Saving</option>
+        <option value="Investment">Investment</option>
+    </select>
+
+    <select id="item">
+        <option value="">Select Item</option>
+        <option value="FD">Fixed Deposit</option>
+        <option value="SIP">SIP</option>
+        <option value="Mutual Fund">Mutual Fund</option>
+        <option value="Stock Market">Stock Market</option>
+        <option value="General Saving">General Saving</option>
+    </select>
+
+    <button onclick="addAllocation()">Add</button>
+</div>
+ 
+<!-- LIST -->
+<div id="allocationList"></div>
+<!-- SUMMARY SECTION -->
+<div class="card">
+    <h3>Money Allocation Summary</h3>
+
+    <p><strong>Monthly Income:</strong> ₹<span id="sumIncome">0</span></p>
+    <p><strong>Saving (10% target):</strong> ₹<span id="sumSavingTarget">0</span></p>
+    <p><strong>Investment (10% target):</strong> ₹<span id="sumInvestmentTarget">0</span></p>
+
+    <hr>
+
+    <p><strong>Saved Amount:</strong> ₹<span id="sumSaving">0</span></p>
+    <p><strong>Invested Amount:</strong> ₹<span id="sumInvestment">0</span></p>
+
+    <hr>
+
+    <p><strong>Remaining (Want):</strong> ₹<span id="sumWant">0</span></p>
+</div>
+
+<!-- PIE CHART -->
+<div class="card" style="height:250">
+    <canvas id="pieChart"></canvas>
+</div>
+
+<!-- BAR GRAPH -->
+<div class="card" style="height:250">
+    <canvas id="barChart"></canvas>
+</div>
+
+</div>
+
+<script src="normal.js"></script>
+</body>
+</html>

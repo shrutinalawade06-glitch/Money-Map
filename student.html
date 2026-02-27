@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Expense Tracker</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="student.css">
+
+    <!-- Chart.js -->
+    
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💸 Student Expense Tracker</h1>
+
+    <!-- Pocket Money -->
+    <div class="card">
+        <h3>Pocket Money</h3>
+        <input type="number" id="totalMoney" placeholder="Enter total pocket money">
+        <button onclick="setMoney()">Set</button>
+        <p><b>Remaining:</b> ₹<span id="remaining">0</span></p>
+    </div>
+
+
+
+    <script>
+  const pocketInput = document.getElementById("pocketMoney");
+  const setBtn = document.getElementById("setPocketMoney");
+  const remainingText = document.getElementById("remainingAmount");
+
+  const today = new Date();
+  const currentMonth = today.getMonth() + 1; // 1–12
+  const currentYear = today.getFullYear();
+  const monthKey = `${currentMonth}-${currentYear}`;
+
+  let savedMonth = localStorage.getItem("pocketMonth");
+  let remaining = localStorage.getItem("remainingMoney");
+
+  // Page load वर remaining show कर
+  if (savedMonth === monthKey && remaining !== null) {
+    remainingText.innerText = remaining;
+  }
+
+  // Set Pocket Money (फक्त महिन्याला एकदाच)
+  setBtn.addEventListener("click", () => {
+    if (savedMonth === monthKey) {
+      alert("⚠️ या महिन्याचं Pocket Money आधीच set झालं आहे");
+      return;
+    }
+
+    const amount = Number(pocketInput.value);
+    if (amount <= 0) {
+      alert("Valid amount टाका");
+      return;
+    }
+
+    localStorage.setItem("monthlyPocketMoney", amount);
+    localStorage.setItem("remainingMoney", amount);
+    localStorage.setItem("pocketMonth", monthKey);
+
+    remainingText.innerText = amount;
+    alert("✅ Monthly Pocket Money Set झालं");
+  });
+  
+  // 👉 Expense add झाल्यावर हा function call कर
+  window.reducePocketMoney = function (expenseAmount) {
+    let remaining = Number(localStorage.getItem("remainingMoney"));
+
+    remaining -= expenseAmount;
+    localStorage.setItem("remainingMoney", remaining);
+    remainingText.innerText = remaining;
+
+    if (remaining <= 0) {
+      alert("❌ Pocket Money संपलं आहे! पुढील खर्च करू नका");
+    }
+  };
+</script>
+
+
+
+    <!-- Expense Form -->
+    <div class="card">
+        <h3>Add Expense</h3>
+        <input type="date" id="date">
+        
+        <select id="category">
+            <option>Food</option>
+            <option>Travel</option>
+            <option>Books</option>
+            <option>Entertainment</option>
+            <option>Other</option>
+        </select>
+
+        <input type="number" id="amount" placeholder="Expense Amount">
+        <button onclick="addExpense()">Add Expense</button>
+    </div>
+
+    <!-- Expense Table -->
+    <div class="card">
+        <h3>Expense History</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="expenseList"></tbody>
+        </table>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts">
+        <div class="card">
+            <h3>Daily Expense Pie Chart</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Monthly Expense Statistics</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<!-- JavaScript File -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="student.js"></script>
+</body>
+</html>
+
+
+
